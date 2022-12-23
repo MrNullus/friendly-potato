@@ -75,3 +75,18 @@
     }
   }
 }
+
+.home {
+  background-color: #a7bcff;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 65%;
+    height: 8%;
+    overflow: hidden;
+  }
+}
