@@ -8,11 +8,6 @@ const Login = () => {
       <div className="formWrapper">
         <form>
           <input 
-            type="text" 
-            name="name"
-            placeholder="Deixe seu lindo nome registrado"
-          />
-          <input 
             type="email" 
             name="email"
             placeholder="Email"
@@ -22,16 +17,6 @@ const Login = () => {
             name="password"
             placeholder="Senha"
           />
-          <input 
-            className="sr-only"
-            type="file" 
-            name="file"
-            id="file"
-          />
-          <label htmlFor="file">
-            <img src={ImgAdd} alt="Add" />
-            <span>Add an avatar</span>
-          </label>
 
           <button>Sign In</button>
         </form>
