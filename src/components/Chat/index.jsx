@@ -5,6 +5,8 @@ import ImgAdd from '../../img/add.png';
 import ImgMore from '../../img/more.png';
 
 import Message from '../Message';
+import Input from '../Input';
+
 import './styles.scss';
 
 const Chat = () => {
