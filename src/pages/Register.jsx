@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../services/firebase';
 
 import ImgAdd from '../img/add.png';
 
 const Register = () => {
+  const [error, setError] = useState(false);
+
+  const handleSubmit = ( e ) => {
+    console.log("hello shit world")
+    e.preventDefault();
+
+    const newUser = {
+      displayName: e.target[0].value,
+      email: e.target[1].value,
+      password: e.target[2].value,
+      file: e.target[3].files[0]
+    }
+
+    try {
+
+      const res = createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
+    } catch (error) {
+      setError(true);
+    }
+  }
+
+
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <form>
+        <form onSubmit={handleSubmit}>
           <input 
             type="text" 
             name="name"
@@ -33,7 +58,10 @@ const Register = () => {
             <span>Add an avatar</span>
           </label>
 
-          <button>Sign Up</button>
+          <button>Sign Up</button> 
+          {
+            error && <span>Opps algo deu errado!</span>
+          }
         </form>
 
         <p>Você já possui uma conta? Entrar</p>
