@@ -1,3 +1,5 @@
+@import '../../styles/mixins.scss';
+
 .navbar {
   display: flex;
   align-items: center;
@@ -9,6 +11,9 @@
 
   .logo {
     font-weight: bold;
+    @include tablet {
+      display: none;
+    }
   }
 
   .user {
@@ -26,6 +31,11 @@
       font-size: 10px;
       border: none;
       cursor: pointer;
+
+      @include tablet {
+        position: absolute;
+        bottom: 10px;
+      }
     }
   }
 }

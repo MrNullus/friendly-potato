@@ -1,7 +1,11 @@
+@import './mixins.scss';
+
+// Variables
+$darColor: #2f2d52;
+
 .sr-only {
   display: none!important;
 }
-
 
 .formContainer {
   background-color: #a7bcff;
@@ -22,7 +26,6 @@
     .logo {
       color: #5d5b8d;
       font-weight: bold;
-      font-size: 24px;
     }
 
     .title {
@@ -47,7 +50,8 @@
       }
       
       button {
-        background-color: white;
+        color: white;
+        background-color: $darColor;
         padding: 10px;
         font-weight: bold;
         border: none;
@@ -88,5 +92,9 @@
     width: 65%;
     height: 8%;
     overflow: hidden;
+
+    @include tablet {
+      width: 90%;
+    }
   }
 }
