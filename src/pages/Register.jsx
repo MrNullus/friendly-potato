@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 
 // Service - Firebase
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, storage } from '../services/firebase';
+import { doc, setDoc } from 'firebase/firestore'; 
+importssssssssssssssssssssssss { useNavigator } from 'react-router-dom';
+import { auth, storage, db } from '../services/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { 
   ref, 
   uploadBytesResumable, 
   getDownloadURL 
-} from "firebase/storage";
+} from 'firebase/storage';
 
 import ImgAdd from '../img/add.png';
 
 const Register = () => {
   const [error, setError] = useState(false);
 
-  const handleSubmit = ( e ) => {
+  const handleSubmit = async ( e ) => {
     console.log("hello shit world")
     e.preventDefault();
 
@@ -26,36 +28,44 @@ const Register = () => {
     }
 
     try {
-      const res = createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
-      
-      const storageRef = ref(storage, 'images/rivers.jpg');
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      const res = await createUserWithEmailAndPassword(
+        auth, 
+        newUser.email, 
+        newUser.password
+      );
+      const storageRef = ref(storage, newUser.displayName);
+      const uploadTask = uploadBytesResumable(storageRef, newUser.file);
 
-      uploadTask.on('state_changed', 
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-
-          switch (snapshot.state) {
-            case 'paused':
-              console.log('Upload is paused');
-              break;
-            case 'running':
-              console.log('Upload is running');
-              break;
-          }
-        }, 
-        (error) => {
-          
+      uploadTask.on(
+        (erro) => {
+          setError(true);
+          alert(erro);
         }, 
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          getDownloadURL(uploadTask.snapshot.ref)
+          .then(async (downloadURL) => {
             console.log('File available at', downloadURL);
+
+            await updateProfile(res.user, {
+              displayName: newUser.displayName,
+              photoURL: downloadURL
+            });
+
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName: newUser.displayName,
+              email: newUser.email,
+              photoURL: downloadURL
+            });
+
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+            navigate('/');
           });
         }
       );
-    } catch (error) {
+    } catch (erro) {
       setError(true);
+      alert(erro);
     }
   }
 
@@ -67,7 +77,7 @@ const Register = () => {
           <input 
             type="text" 
             name="name"
-            placeholder="Deixe seu lindo nome registrado"
+            placeholder="Deixe seu lindo nome"
           />
           <input 
             type="email" 
