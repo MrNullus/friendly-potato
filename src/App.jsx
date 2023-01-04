@@ -11,34 +11,29 @@ import './styles/global.scss';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
+
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to="/login" />
+      return <Navigate to="/login" />;
     }
 
-    return children;
-  }
+    return children
+  };
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route 
-            index 
+          <Route
+            index
             element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-            } 
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
           />
-          <Route 
-            path="login" 
-            element={<Login />} 
-          />
-          <Route 
-            path="register" 
-            element={<Register />} 
-          />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>

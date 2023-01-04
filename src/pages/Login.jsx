@@ -42,7 +42,7 @@ const Login = () => {
             placeholder="Senha"
           />
 
-          <button>Sign In</button>
+          <button type="submit">Sign In</button>
           {
             error && <span>Opps algo deu errado!</span>
           }
