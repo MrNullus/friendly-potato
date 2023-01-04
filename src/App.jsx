@@ -1,11 +1,5 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  BrowserRouter,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
 
 import { AuthContext } from './context/AuthContext';
 

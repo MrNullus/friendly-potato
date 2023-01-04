@@ -10,7 +10,7 @@ import { doc, setDoc } from "firebase/firestore";
 import ImgAdd from '../img/add.png';
 
 const Register = () => {
-  const navigate = useNavigator();
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
