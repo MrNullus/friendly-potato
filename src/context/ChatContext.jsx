@@ -7,13 +7,13 @@ import { AuthContext } from "./AuthContext";
 
 const ChatContext = createContext();
 const ChatContextProvider = ({ children }) => {
-  const AuthContext = useContext(AuthContext);
+  const currentUser = useContext(AuthContext);
   const INITIAL_STATE = {
     chatId: "null",
     user: {}
   };
 
-  chatReducer = (state, action) => {
+  const chatReducer = (state, action) => {
     switch (action.type) {
       case "CHANGE_USER":
         return {
