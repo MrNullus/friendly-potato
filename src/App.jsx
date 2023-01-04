@@ -21,6 +21,8 @@ function App() {
     if (!currentUser) {
       return <Navigate to="/login" />
     }
+
+    return children;
   }
 
   return (
@@ -29,7 +31,11 @@ function App() {
         <Route path="/">
           <Route 
             index 
-            element={<Home />} 
+            element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+            } 
           />
           <Route 
             path="login" 
