@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Service - Firebase
-import { doc, setDoc } from 'firebase/firestore'; 
-importssssssssssssssssssssssss { useNavigator } from 'react-router-dom';
-import { auth, storage, db } from '../services/firebase';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { 
-  ref, 
-  uploadBytesResumable, 
-  getDownloadURL 
-} from 'firebase/storage';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db, storage } from "../services/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 
 import ImgAdd from '../img/add.png';
 
 const Register = () => {
+  const navigate = useNavigator();
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async ( e ) => {
-    console.log("hello shit world")
+    console.log("hello shit world!");
     e.preventDefault();
 
     const newUser = {
@@ -106,7 +104,10 @@ const Register = () => {
           }
         </form>
 
-        <p>Você já possui uma conta? Entrar</p>
+        <p>
+          Você já possui uma conta? 
+          <Link to="/register">Entrar</Link>
+        </p>
       </div>
     </div>
   );

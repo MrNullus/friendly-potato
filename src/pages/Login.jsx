@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import ImgAdd from '../img/add.png';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../services/firebase';
+
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async ( e ) => {
+    console.log("hello shit world")
+    e.preventDefault();
+
+    const user = {
+      email: e.target[0].value,
+      password: e.target[1].value,
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, user.email, user.password);
+      navigate('/');
+    } catch (erro) {
+      setError(true);
+      alert(erro);
+    }
+  }
+
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <form>
+        <form onSubmit={handleSubmit}>
           <input 
             type="email" 
             name="email"
@@ -19,9 +43,15 @@ const Login = () => {
           />
 
           <button>Sign In</button>
+          {
+            error && <span>Opps algo deu errado!</span>
+          }
         </form>
 
-        <p>Ainda não possui uma conta? Registrar-se</p>
+        <p>
+          Ainda não possui uma conta? 
+          <Link to="/register">Registrar-se</Link>
+        </p>
       </div>
     </div>
   );
